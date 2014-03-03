@@ -1,0 +1,124 @@
+<html>
+<head>
+<style type="text/css">
+#div1 {width:95px;height:47px;padding:10px;border:1px solid #aaaaaa;}
+#divnew {width:220px;height:240px;padding:10px;border:1px solid #aaaaaa; background-image: url(/eolms/question/type/easyonewman/pix/stag.png);}
+#divnew {background-color:#ffffff;}
+#pos0slot {width:40px;height:30px;padding:0px;border:1px solid #aaaaaa; position:relative; top:40px; left:1px;}
+#pos1slot {width:40px;height:30px;padding:0px;border:1px solid #aaaaaa; position:relative; top:-30px; left:82px;}
+#pos2slot {width:40px;height:30px;padding:0px;border:1px solid #aaaaaa; position:relative; top:-25px; left:160px;}
+#pos3slot {width:40px;height:30px;padding:0px;border:1px solid #aaaaaa; position:relative; top:42px; left:160px;}
+#pos4slot {width:40px;height:30px;padding:0px;border:1px solid #aaaaaa; position:relative; top:48px; left:82px;}
+#pos5slot {width:40px;height:30px;padding:0px;border:1px solid #aaaaaa; position:relative; top:-22px; left:1px;}
+</style>
+<script>
+function allowDrop(ev)
+{
+ev.preventDefault();
+}
+
+function drag(ev)
+{
+ev.dataTransfer.setData("Text",ev.target.id);
+//console.log("id="+ev.target.id);
+origin = document.getElementById(ev.target.id); 
+//console.log("origin="+origin.parentNode.id);
+
+//if(origin.parentNode.id.charAt(0) != "d"){
+//document.getElementById('a'+origin.parentNode.id).value="";}
+ 
+}
+
+function drop(ev)
+{
+ev.preventDefault();
+var data=ev.dataTransfer.getData("Text");
+//console.log(ev);
+//console.log("data="+data);
+//console.log("targid="+ev.target.id);
+//console.log("origin="+origin.parentNode.id);
+
+if(origin.parentNode.id.charAt(0) != "d"){
+document.getElementById('a'+origin.parentNode.id).value="";}
+
+
+
+
+if(ev.target.tagName == "IMG")
+{//console.log('must be image');
+///better remove existing image
+
+img=document.getElementById(ev.target.id);
+
+div=img.parentNode;
+//console.log(div);
+
+///move previous img
+
+//grouptype=img.id.substring(0, img.id.length - 1)
+//console.log("grouptype="+grouptype);
+imgdiv=document.getElementById("d"+img.id);
+imgdiv.appendChild(img);
+
+///delete previous image
+//img.parentNode.removeChild(img);
+
+
+
+
+///add dragged image to div
+div.appendChild(document.getElementById(data));
+
+document.getElementById('a'+div.id).value=data;
+}
+else{
+
+document.getElementById('a'+ev.target.id).value=data;
+ev.target.appendChild(document.getElementById(data));
+}
+
+
+//document.getElementById('a'+data).value='';
+
+//ev.dataTransfer.removeChild(document.getElementById(ev.target.id));
+
+
+}
+</script>
+</head>
+<body>
+
+
+
+<!-- newman template -->
+<div id="divnew">
+
+<div id="pos0slot" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
+<div id="pos1slot" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
+<div id="pos2slot" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
+<div id="pos3slot" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
+<div id="pos4slot" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
+<div id="pos5slot" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
+
+</div>
+
+<input type="hidden" id="apos0slot" value=''>
+<input type="hidden" id="apos1slot" value=''>
+<input type="hidden" id="apos2slot" value=''>
+<input type="hidden" id="apos3slot" value=''>
+<input type="hidden" id="apos4slot" value=''>
+<input type="hidden" id="apos5slot" value=''>
+
+
+<br>
+
+
+
+
+
+
+<br>
+<br>
+
+</body>
+</html>
