@@ -82,6 +82,8 @@ class qtype_easyofischer_edit_form extends qtype_shortanswer_edit_form {
         $PAGE->requires->js_init_call('M.qtype_easyofischer.insert_structure_into_applet', array(
             $numofstereo
         ), true, $jsmodule);
+
+        $PAGE->requires->js_init_call('M.qtype_easyofischer.dragndrop', array('1'), true, $jsmodule);
         $this->add_per_answer_fields($mform, get_string('answerno', 'qtype_easyofischer', '{no}'),
             question_bank::fraction_options());
         $this->add_interactive_settings();

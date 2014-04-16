@@ -133,6 +133,7 @@ class qtype_easyofischer_renderer extends qtype_renderer {
             $temp = file_get_contents($CFG->dirroot . '/question/type/easyofischer/fischer_dragable.html');
             $temp = str_replace("slot", $qa->get_slot(), $temp);
             $result .= $temp;
+            $this->page->requires->js_init_call('M.qtype_easyofischer.dragndrop', array($qa->get_slot()));
         }
         $this->require_js($qa, $options->readonly, $options->correctness, $numofstereo);
         return $result;

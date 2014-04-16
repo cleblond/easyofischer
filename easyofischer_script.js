@@ -63,6 +63,7 @@ M.qtype_easyofischer.init_reload = function(Y, url, htmlid) {
             //console.log(selected);
             fischer_template.innerHTML = o.responseText;
             M.qtype_easyofischer.insert_structure_into_applet(Y, document.getElementById('id_numofstereo').value);
+            M.qtype_easyofischer.dragndrop(Y, document.getElementById('id_numofstereo').value);
             //div.innerHTML = "<li>JARL!!!</li>";
         }
     var handleFailure = function(o) { /*failure handler code*/
@@ -81,3 +82,87 @@ M.qtype_easyofischer.init_reload = function(Y, url, htmlid) {
         });
     });
 };
+
+
+M.qtype_easyofischer.dragndrop = function(Y, slot) {
+    YUI().use('dd-drag', 'dd-constrain', 'dd-proxy', 'dd-drop', function(Y) {
+        //Listen for all drag:drag events
+        Y.DD.DDM.on('drag:drag', function(e) {
+            //Get the last y point
+            var y = e.target.lastXY[1];
+            //is it greater than the lastY var?
+            if (y < lastY) {
+                //We are going up
+                goingUp = true;
+            } else {
+                //We are going down.
+                goingUp = false;
+            }
+            //Cache for next check
+            lastY = y;
+        });
+        //Listen for all drag:start events
+        Y.DD.DDM.on('drag:start', function(e) {
+            //Get our drag object
+            var drag = e.target;
+            //Set some styles here
+            drag.get('node').setStyle('opacity', '.25');
+            drag.get('dragNode').set('innerHTML', drag.get('node').get('innerHTML'));
+            drag.get('dragNode').setStyles({
+                opacity: '.5',
+                borderColor: drag.get('node').getStyle('borderColor'),
+                backgroundColor: drag.get('node').getStyle('backgroundColor')
+            });
+        });
+        //Listen for a drag:end events
+        Y.DD.DDM.on('drag:end', function(e) {
+            var drag = e.target;
+            drag.get('node').setStyles({
+                visibility: '',
+                opacity: '1'
+            });
+        });
+        Y.DD.DDM.on('drop:hit', function(e) {
+            var drop = e.drop.get('node'),
+                drag = e.drag.get('node');
+            var flag = false;
+        });
+        //Listen for all drag:drophit events
+        Y.DD.DDM.on('drag:drophit', function(e) {
+            var drop = e.drop.get('node'),
+                drag = e.drag.get('node');
+            drop.get('childNodes').remove();
+            drop.appendChild(drag);
+            var idhand = drop.get('id');
+            if (idhand.charAt(0) === 'e') {
+                var idhand = idhand.substr(1);
+            }
+            document.getElementById('a' + idhand).value = drag.get('id');
+        });
+        //Static Vars
+        var goingUp = false,
+            lastY = 0;
+        var nextsibling = '';
+        var dragparentid = '';
+        //Get the list of img's and make them draggable
+        var lis = Y.Node.all('.dragableimg');
+        lis.each(function(v, k) {
+            var dd = new Y.DD.Drag({
+                node: v,
+                target: {
+                    padding: '0 0 0 20'
+                }
+            }).plug(Y.Plugin.DDProxy, {
+                moveOnEnd: false,
+                cloneNode: true,
+            }).plug(Y.Plugin.DDConstrained, {});
+        });
+        var uls = Y.Node.all('.dropablediv');
+        uls.each(function(v, k) {
+            var tar = new Y.DD.Drop({
+                node: v
+            });
+        });
+    });
+};
+

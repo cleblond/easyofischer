@@ -23,99 +23,6 @@ div.flipable img[id^='oh']
     -ms-transform: scale(-1, 1);
 }
 </style>
-<script>
-function allowDrop(ev)
-{
-ev.preventDefault();
-}
-
-function drag(ev)
-{
-ev.dataTransfer.setData("Text",ev.target.id);
-//console.log("id="+ev.target.id);
-origin = document.getElementById(ev.target.id); 
-//console.log("origin="+origin.parentNode.id);
-
-//if(origin.parentNode.id.charAt(0) != "d"){
-//document.getElementById('a'+origin.parentNode.id).value="";}
- 
-}
-
-function drop(ev)
-{
-ev.preventDefault();
-var data=ev.dataTransfer.getData("Text");
-//console.log(ev);
-//console.log("data="+data);
-//console.log("targid="+ev.target.id);
-
-
-
-
-
-//console.log("origin parentNode="+origin.parentNode.id);
-
-//console.log("here it is="+ev.target.id.charAt(ev.target.id.length - 1));
-
-
-
-
-if(origin.parentNode.id.charAt(0) != "d"){
-document.getElementById('a'+origin.parentNode.id).value="";}
-
-
-
-
-if(ev.target.tagName == "IMG")
-{//console.log('must be image'+ev.target.id);
-///better remove existing image
-
-img=document.getElementById(ev.target.id);
-
-div=img.parentNode;
-//console.log(div);
-
-///move previous img
-
-//grouptype=img.id.substring(0, img.id.length - 1)
-//console.log("grouptype="+grouptype);
-
-if(ev.target.id.charAt(ev.target.id.length - 2) == 6){
-
-img=document.getElementById(ev.target.id);
-div=img.parentNode;
-div.innerHTML="";
-
-}
-else{
-imgdiv=document.getElementById("d"+img.id);
-imgdiv.appendChild(img);
-}
-///delete previous image
-//img.parentNode.removeChild(img);
-
-
-
-
-///add dragged image to div
-div.appendChild(document.getElementById(data));
-
-document.getElementById('a'+div.id).value=data;
-}
-else{
-
-document.getElementById('a'+ev.target.id).value=data;
-ev.target.appendChild(document.getElementById(data));
-}
-
-
-//document.getElementById('a'+data).value='';
-
-//ev.dataTransfer.removeChild(document.getElementById(ev.target.id));
-
-
-}
-</script>
 </head>
 <body>
 
@@ -124,14 +31,14 @@ ev.target.appendChild(document.getElementById(data));
 <!-- fischer template -->
 <div id="divnew" style="float:left;">
 
-<div class="flipable" id="pos0" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-<div id="pos1" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-<div id="pos2" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-<div id="pos3" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-<div id="pos4" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-<div id="pos5" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-<div class="flipable" id="pos6" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-<div class="flipable" id="pos7" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
+<div class="dropablediv flipable" id="pos0" ></div>
+<div class="dropablediv" id="pos1" ></div>
+<div class="dropablediv" id="pos2" ></div>
+<div class="dropablediv" id="pos3" ></div>
+<div class="dropablediv" id="pos4" ></div>
+<div class="dropablediv" id="pos5" ></div>
+<div class="dropablediv flipable" id="pos6" ></div>
+<div class="dropablediv flipable" id="pos7" ></div>
 
 </div>
 
