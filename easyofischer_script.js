@@ -34,12 +34,18 @@ M.qtype_easyofischer = {
     insert_structure_into_applet: function(Y, numofstereo) {
         var textfieldid = 'id_answer_0';
         if (document.getElementById(textfieldid).value != '') {
-            //console.log('stereo'+numofstereo);
             var s = document.getElementById(textfieldid).value;
-            //console.log(s);
             var positions = 2 * numofstereo + 2;
             var groups = s.split("-");
-            //console.log(groups);
+            var curlength = groups.length;
+            // Adjust for changes in num of stereo if needed.
+            if (curlength < positions) {
+		for (var i = 1; i <= (positions - curlength); i++) {
+                   groups.push('h6')
+                }
+	    }
+
+            console.log(groups);
             for (var i = 0; i < positions; i++) {
                 //document.write(cars[i] + "<br>");
                 var elem = document.createElement("img");
