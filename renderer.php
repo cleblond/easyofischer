@@ -121,6 +121,7 @@ class qtype_easyofischer_renderer extends qtype_renderer {
             $temp = str_replace("slot", $qa->get_slot(), $temp);
             $result .= $temp;
         } else {
+            $result .= html_writer::div(get_string('fischerinstructstud', 'qtype_easyofischer'), 'instructions', array());
             $temp = file_get_contents($CFG->dirroot . '/question/type/easyofischer/fischer' . $numofstereo . '.html');
             $temp = str_replace("slot", $qa->get_slot(), $temp);
             $result .= $temp;
