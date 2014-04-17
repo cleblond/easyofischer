@@ -1,25 +1,3 @@
-function getSmiles(textfieldid) {
-    document.getElementById(textfieldid).value = document.getElementById('EASYOFISCHER' + textfieldid).smiles();
-}
-
-
-function getSmilesEdit(buttonname, numofstereo) {
-    var buttonnumber = buttonname.slice(7, -1);
-    var answerstring = '';
-    numofstereo = document.getElementById('id_numofstereo').value;
-    var iterations = 2 * numofstereo + 2;
-    var arr = new Array(iterations);
-    for (var i = 0; i < iterations; i++) {
-        if (document.getElementById('apos' + i).value != '') {
-            arr[i] = document.getElementById('apos' + i).value;
-            arr[i] = arr[i].substring(0, arr[i].length - 1) + '6';
-        } else {
-            arr[i] = 'h6'
-        }
-    }
-    textfieldid = 'id_answer_' + buttonnumber;
-    document.getElementById(textfieldid).value = arr.join("-");
-}
 M.qtype_easyofischer = {
     insert_structure_into_applet: function(Y, numofstereo) {
         var textfieldid = 'id_answer_0';
@@ -34,8 +12,6 @@ M.qtype_easyofischer = {
                    groups.push('h6')
                 }
             }
-    
-            console.log(groups);
             for (var i = 0; i < positions; i++) {
                 var elem = document.createElement("img");
                 group = groups[i];
@@ -155,3 +131,31 @@ M.qtype_easyofischer.dragndrop = function(Y, slot) {
     });
 };
 
+M.qtype_easyofischer.init_getanswerstring = function(Y, numofstereo) {
+    var handleSuccess = function(o) {};
+    var handleFailure = function(o) { /*failure handler code*/
+        };
+    var callback = {
+        success: handleSuccess,
+        failure: handleFailure
+    };
+    Y.all(".id_insert").each(function(node) {
+        node.on("click", function() {
+            numofstereo = document.getElementById('id_numofstereo').value;
+            var buttonid = node.getAttribute("id");
+            var answerstring = '';
+            var iterations = 2 * numofstereo + 2;
+            var arr = new Array(iterations);
+            for (var i = 0; i < iterations; i++) {
+                if (document.getElementById('apos' + i).value != '') {
+                    arr[i] = document.getElementById('apos' + i).value;
+                    arr[i] = arr[i].substring(0, arr[i].length - 1) + '6';
+                } else {
+                    arr[i] = 'h6'
+                }
+            }
+            textfieldid = 'id_answer_' + buttonid.substr(buttonid.length - 1);
+            document.getElementById(textfieldid).value = arr.join("-");
+        });
+    });
+};

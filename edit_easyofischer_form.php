@@ -43,14 +43,17 @@ class qtype_easyofischer_edit_form extends qtype_shortanswer_edit_form {
             '0' => 'False',
             '1' => 'True'
         );
-        $mform->addElement('select', 'strictfischer', 'Rotation allowed?', $menu);
+        $mform->addElement('html', '<strong>'.get_string('rotationmore', 'qtype_easyofischer').'</strong>');
+        $mform->addElement('select', 'strictfischer', get_string('rotationallowed', 'qtype_easyofischer'), $menu);
         $menu = array(
             '1' => '1',
             '2' => '2',
             '3' => '3',
             '4' => '4'
         );
-        $mform->addElement('select', 'numofstereo', '# of Stereocenters', $menu);
+        $mform->addElement('html', '<strong>'.get_string('numofstereomore', 'qtype_easyofischer').'</strong>');
+        $mform->addElement('select', 'numofstereo', get_string('numofstereo', 'qtype_easyofischer'), $menu);
+        $mform->addElement('html', '<strong>'.get_string('fischerinstruct', 'qtype_easyofischer').'</strong>');
         $easyofischerbuildstring = file_get_contents('type/easyofischer/edit_fischer' . $numofstereo . '.html');
         $temp                    = file_get_contents('type/easyofischer/fischer_dragable.html');
         $easyofischerbuildstring = $easyofischerbuildstring . $temp;
@@ -84,6 +87,7 @@ class qtype_easyofischer_edit_form extends qtype_shortanswer_edit_form {
         ), true, $jsmodule);
 
         $PAGE->requires->js_init_call('M.qtype_easyofischer.dragndrop', array('1'), true, $jsmodule);
+        $PAGE->requires->js_init_call('M.qtype_easyofischer.init_getanswerstring', array($numofstereo));
         $this->add_per_answer_fields($mform, get_string('answerno', 'qtype_easyofischer', '{no}'),
             question_bank::fraction_options());
         $this->add_interactive_settings();
@@ -91,12 +95,10 @@ class qtype_easyofischer_edit_form extends qtype_shortanswer_edit_form {
     protected function get_per_answer_fields($mform, $label, $gradeoptions, &$repeatedoptions, &$answersoption) {
         global $numofstereo;
         $repeated      = parent::get_per_answer_fields($mform, $label, $gradeoptions, $repeatedoptions, $answersoption);
-        $scriptattrs   = 'onClick = "getSmilesEdit(this.name, ' . $numofstereo . ')"';
-        $insertbutton = $mform->createElement('button', 'insert',
-            get_string('insertfromeditor', 'qtype_easyofischer'), $scriptattrs);
-        array_splice($repeated, 2, 0, array(
-            $insertbutton
-        ));
+        $scriptattrs = 'class = id_insert';
+        $insertbutton = $mform->createElement('button', 'insert', get_string('insertfromeditor',
+        'qtype_easyonewman'), $scriptattrs);
+        array_splice($repeated, 2, 0, array($insertbutton));
         return $repeated;
     }
     protected function data_preprocessing($question) {

@@ -19,14 +19,14 @@
  *
  * @package    qtype
  * @subpackage easyofischer
- * @copyright  1999 onwards Martin Dougiamas {@link http://moodle.com}
+ * @copyright  2014 onwards Carl LeBlond
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2012060100;
-$plugin->requires  = 2011102700;
+$plugin->version   = 2014041600;
+$plugin->requires  = 2012062500;
 $plugin->cron      = 0;
 $plugin->component = 'qtype_easyofischer';
 $plugin->maturity  = MATURITY_STABLE;

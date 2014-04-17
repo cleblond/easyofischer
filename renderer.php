@@ -18,16 +18,11 @@
  *
  * @package    qtype
  * @subpackage easyofischer
- * @copyright  2009 The Open University
+ * @copyright  2014 onwards Carl LeBlond
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
-/**
- * Generates the output for easyofischer questions.
- *
- * @copyright  2009 The Open University
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+
 class qtype_easyofischer_renderer extends qtype_renderer {
     public function formulation_and_controls(question_attempt $qa, question_display_options $options) {
         global $CFG, $PAGE;
@@ -122,7 +117,6 @@ class qtype_easyofischer_renderer extends qtype_renderer {
             'class' => 'inputcontrol'
         ));
         if ($options->readonly) {
-            echo $CFG->dirroot;
             $temp = file_get_contents($CFG->dirroot . '/question/type/easyofischer/fischer' . $numofstereo . '.html');
             $temp = str_replace("slot", $qa->get_slot(), $temp);
             $result .= $temp;

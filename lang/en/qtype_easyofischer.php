@@ -19,27 +19,18 @@
  *
  * @package    qtype
  * @subpackage easyofischer
- * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @copyright  2014 onwards Carl LeBlond
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
-$string['caseconformtrue'] = 'True';
-$string['caseconformfalse'] = 'False';
-$string['caseconformimportant'] = '<b>Conformation Important</b><br/>Is the conformation important?  If "True" then a specific conformation must be draw.  (e.g. Draw butane in its gauche conformation)';
-
-
 $string['staggered'] = 'Staggered';
 $string['eclipsed'] = 'Eclipsed';
-$string['casestagoreclip'] = '<b>Staggered/Eclipsed</b><br/>Do you want a Staggered or Eclipsed template problem?';
-
-
-$string['caseorienttrue'] = 'True';
-$string['caseorientfalse'] = 'False';
-$string['caseorientimportant'] = '<b>Perspective Important?:</b><br/>Is the perspective important?  If "True" then the student must draw the molecule from a certain perspective! (e.g Draw 2-methylbutane looking up the C2-C3 bond?';
-
-
-
+$string['rotationallowed'] = 'Rotation permitted.';
+$string['rotationmore'] = '<h3>Do you want to allow rotations by 180<supo</sup>?</h3>';
+$string['numofstereo'] = '# of Stereocenters';
+$string['numofstereomore'] = '<h3>How many stereocneters would you like?</h3>';
+$string['fischerinstruct'] = '<h3>Build structure below by dragging/dropping groups onto template.</h3>';
+$string['fischerinstructstud'] = '<b>Build structure below by dragging/dropping groups onto template.</b>';
 $string['addmoreanswerblanks'] = 'Blanks for {no} More Answers';
 $string['answermustbegiven'] = 'You must enter an answer if there is a grade or feedback.';
 $string['answerno'] = 'Answer {$a}';

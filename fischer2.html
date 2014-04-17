@@ -1,5 +1,4 @@
 <html>
-
 <style type="text/css">
 #div1 {width:95px;height:47px;padding:10px;border:1px solid #aaaaaa;}
 #divnew {width:220px;height:300px;padding:10px;border:1px solid #aaaaaa;
@@ -21,102 +20,7 @@ div.flipable img[id^='oh']
     -khtml-transform: scale(-1, 1);
     -ms-transform: scale(-1, 1);
 }
-
-
 </style>
-<script>
-function allowDrop(ev)
-{
-ev.preventDefault();
-}
-
-function drag(ev)
-{
-ev.dataTransfer.setData("Text",ev.target.id);
-//console.log("id="+ev.target.id);
-origin = document.getElementById(ev.target.id); 
-//console.log("origin="+origin.parentNode.id);
-
-//if(origin.parentNode.id.charAt(0) != "d"){
-//document.getElementById('a'+origin.parentNode.id).value="";}
- 
-}
-
-function drop(ev)
-{
-ev.preventDefault();
-var data=ev.dataTransfer.getData("Text");
-//console.log(ev);
-//console.log("data="+data);
-//console.log("targid="+ev.target.id);
-
-
-
-
-
-//console.log("origin parentNode="+origin.parentNode.id);
-
-//console.log("here it is="+ev.target.id.charAt(ev.target.id.length - 1));
-
-
-
-
-if(origin.parentNode.id.charAt(0) != "d"){
-document.getElementById('a'+origin.parentNode.id).value="";}
-
-
-
-
-if(ev.target.tagName == "IMG")
-{//console.log('must be image'+ev.target.id);
-///better remove existing image
-
-img=document.getElementById(ev.target.id);
-
-div=img.parentNode;
-//console.log(div);
-
-///move previous img
-
-//grouptype=img.id.substring(0, img.id.length - 1)
-//console.log("grouptype="+grouptype);
-
-if(ev.target.id.charAt(ev.target.id.length - 1) == 6){
-
-img=document.getElementById(ev.target.id);
-div=img.parentNode;
-div.innerHTML="";
-
-}
-else{
-imgdiv=document.getElementById("d"+img.id+slot);
-imgdiv.appendChild(img);
-}
-///delete previous image
-//img.parentNode.removeChild(img);
-
-
-
-
-///add dragged image to div
-div.appendChild(document.getElementById(data));
-
-document.getElementById('a'+div.id).value=data;
-}
-else{
-
-document.getElementById('a'+ev.target.id).value=data;
-ev.target.appendChild(document.getElementById(data));
-}
-
-
-//document.getElementById('a'+data).value='';
-
-//ev.dataTransfer.removeChild(document.getElementById(ev.target.id));
-
-
-}
-</script>
 <input type="hidden" id="apos0slot" value=''>
 <input type="hidden" id="apos1slot" value=''>
 <input type="hidden" id="apos2slot" value=''>
@@ -124,19 +28,15 @@ ev.target.appendChild(document.getElementById(data));
 <input type="hidden" id="apos4slot" value=''>
 <input type="hidden" id="apos5slot" value=''>
 
-
-
 <div style="overflow: hidden; padding: 10px;">
 <!-- fischer template -->
 <div id="divnew">
-
-<div class="flipable" id="pos0slot" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-<div id="pos1slot" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-<div id="pos2slot" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-<div id="pos3slot" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-<div id="pos4slot" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-<div class="flipable" id="pos5slot" ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)"></div>
-
+<div class="dropablediv flipable" id="pos0slot" ></div>
+<div class="dropablediv" id="pos1slot" ></div>
+<div class="dropablediv" id="pos2slot" ></div>
+<div class="dropablediv" id="pos3slot" ></div>
+<div id="pos4slot" ></div>
+<div class="dropablediv flipable" id="pos5slot" ></div>
 </div>
 
 
