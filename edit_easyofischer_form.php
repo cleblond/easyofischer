@@ -26,7 +26,6 @@ require_once($CFG->dirroot . '/question/type/shortanswer/edit_shortanswer_form.p
 class qtype_easyofischer_edit_form extends qtype_shortanswer_edit_form {
     protected function definition_inner($mform) {
         global $PAGE, $CFG, $question, $DB, $numofstereo;
-        $PAGE->requires->js('/question/type/easyofischer/easyofischer_script.js');
         $PAGE->requires->css('/question/type/easyofischer/styles.css');
         if (isset($question->id)) {
             $record      = $DB->get_record('question_easyofischer', array(
@@ -58,35 +57,17 @@ class qtype_easyofischer_edit_form extends qtype_shortanswer_edit_form {
         $temp                    = file_get_contents('type/easyofischer/fischer_dragable.html');
         $easyofischerbuildstring = $easyofischerbuildstring . $temp;
         $mform->addElement('html', $easyofischerbuildstring);
-        $jsmodule = array(
-            'name' => 'qtype_easyofischer',
-            'fullpath' => '/question/type/easyofischer/easyofischer_script.js',
-            'requires' => array(),
-            'strings' => array(
-                array(
-                    'enablejava',
-                    'qtype_easyofischer'
-                )
-            )
-        );
         $htmlid   = 1;
-        $module   = array(
-            'name' => 'easyofischer',
-            'fullpath' => '/question/type/easyofischer/module.js',
-            'requires' => array(
-                'yui2-treeview'
-            )
-        );
         $url      = $CFG->wwwroot . '/question/type/easyofischer/template_update.php?numofstereo=';
         $PAGE->requires->js_init_call('M.qtype_easyofischer.init_reload', array(
             $url,
             $htmlid
-        ), true, $jsmodule);
+        ), true);
         $PAGE->requires->js_init_call('M.qtype_easyofischer.insert_structure_into_applet', array(
             $numofstereo
-        ), true, $jsmodule);
+        ), true);
 
-        $PAGE->requires->js_init_call('M.qtype_easyofischer.dragndrop', array('1'), true, $jsmodule);
+        $PAGE->requires->js_init_call('M.qtype_easyofischer.dragndrop', array('1'), true);
         $PAGE->requires->js_init_call('M.qtype_easyofischer.init_getanswerstring', array($numofstereo));
         $this->add_per_answer_fields($mform, get_string('answerno', 'qtype_easyofischer', '{no}'),
             question_bank::fraction_options());

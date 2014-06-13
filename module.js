@@ -17,6 +17,32 @@ M.qtype_easyofischer = {
             Y.one(topnode + ' input.answer').set('value', orderstring);
             Y.one(topnode + ' input.mol').set('value', orderstring);
         }, this);
+    },
+    insert_structure_into_applet: function(Y, numofstereo) {
+        var textfieldid = 'id_answer_0';
+        if (document.getElementById(textfieldid).value != '') {
+            var s = document.getElementById(textfieldid).value;
+            var positions = 2 * numofstereo + 2;
+            var groups = s.split("-");
+            var curlength = groups.length;
+            // Adjust for changes in num of stereo if needed.
+            if (curlength < positions) {
+                for (var i = 1; i <= (positions - curlength); i++) {
+                   groups.push('h6')
+                }
+            }
+            for (var i = 0; i < positions; i++) {
+                var elem = document.createElement("img");
+                group = groups[i];
+                trimgroup = group.substring(0, group.length - 1);
+                elem.setAttribute("src", "type/easyofischer/pix/" + trimgroup + ".png");
+                elem.setAttribute("id", group + i);
+                elem.setAttribute("height", "30");
+                elem.setAttribute("width", "40");
+                document.getElementById("pos" + i).appendChild(elem);
+                document.getElementById("apos" + i).value = group;
+            }
+        }
     }
 }
 M.qtype_easyofischer2 = {
@@ -186,6 +212,57 @@ M.qtype_easyofischer.dragndrop = function(Y, slot) {
             var tar = new Y.DD.Drop({
                 node: v
             });
+        });
+    });
+};
+
+M.qtype_easyofischer.init_reload = function(Y, url, htmlid) {
+    var handleSuccess = function(o) {
+            fischer_template.innerHTML = o.responseText;
+            M.qtype_easyofischer.insert_structure_into_applet(Y, document.getElementById('id_numofstereo').value);
+            M.qtype_easyofischer.dragndrop(Y, document.getElementById('id_numofstereo').value);
+        }
+    var handleFailure = function(o) { /*failure handler code*/
+        }
+    var callback = {
+        success: handleSuccess,
+        failure: handleFailure
+    }
+    var button = Y.one("#id_numofstereo");
+    button.on("change", function(e) {
+        div = Y.YUI2.util.Dom.get(htmlid);
+        Y.use('yui2-connection', function(Y) {
+            newurl = url + document.getElementById('id_numofstereo').value;
+            Y.YUI2.util.Connect.asyncRequest('GET', newurl, callback);
+        });
+    });
+};
+
+M.qtype_easyofischer.init_getanswerstring = function(Y, numofstereo) {
+    var handleSuccess = function(o) {};
+    var handleFailure = function(o) { /*failure handler code*/
+        };
+    var callback = {
+        success: handleSuccess,
+        failure: handleFailure
+    };
+    Y.all(".id_insert").each(function(node) {
+        node.on("click", function() {
+            numofstereo = document.getElementById('id_numofstereo').value;
+            var buttonid = node.getAttribute("id");
+            var answerstring = '';
+            var iterations = 2 * numofstereo + 2;
+            var arr = new Array(iterations);
+            for (var i = 0; i < iterations; i++) {
+                if (document.getElementById('apos' + i).value != '') {
+                    arr[i] = document.getElementById('apos' + i).value;
+                    arr[i] = arr[i].substring(0, arr[i].length - 1) + '6';
+                } else {
+                    arr[i] = 'h6'
+                }
+            }
+            textfieldid = 'id_answer_' + buttonid.substr(buttonid.length - 1);
+            document.getElementById(textfieldid).value = arr.join("-");
         });
     });
 };
