@@ -29,8 +29,10 @@ class qtype_easyofischer_question extends qtype_shortanswer_question {
     public function compare_response_with_answer(array $response, question_answer $answer) {
         $numofstereo   = $this->numofstereo;
         $strictfischer = $this->strictfischer;
+        echo $strictfischer;
         $usranswer     = $response['answer'];
         $coranswer     = $answer->answer;
+        echo "$coranswer  $usranswer";
         $cor           = explode("-", $coranswer);
         $usr           = explode("-", $usranswer);
         for ($i = 0; $i < 2 * $numofstereo + 2; $i++) {
@@ -38,7 +40,7 @@ class qtype_easyofischer_question extends qtype_shortanswer_question {
             $usr[$i] = substr($usr[$i], 0, -1);
         }
         if ($cor == $usr) {
-            $returnflag = 1;
+            return 1;
         } else {
             $returnflag = 0;
         }

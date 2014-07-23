@@ -50,11 +50,13 @@ class qtype_easyofischer_edit_form extends qtype_shortanswer_edit_form {
             '3' => '3',
             '4' => '4'
         );
+
         $mform->addElement('html', '<strong>'.get_string('numofstereomore', 'qtype_easyofischer').'</strong>');
         $mform->addElement('select', 'numofstereo', get_string('numofstereo', 'qtype_easyofischer'), $menu);
         $mform->addElement('html', '<strong>'.get_string('fischerinstruct', 'qtype_easyofischer').'</strong>');
         $easyofischerbuildstring = file_get_contents('type/easyofischer/edit_fischer' . $numofstereo . '.html');
         $temp                    = file_get_contents('type/easyofischer/fischer_dragable.html');
+        $temp = str_replace("moodleroot", $CFG->wwwroot, $temp);
         $easyofischerbuildstring = $easyofischerbuildstring . $temp;
         $mform->addElement('html', $easyofischerbuildstring);
         $htmlid   = 1;
